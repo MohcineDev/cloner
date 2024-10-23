@@ -36,23 +36,23 @@ let itemsMax = 1
 INPUT_NUMBER.addEventListener('change', (e) => {
     let value = e.target.value
     if (value <= 100 && value >= 1) {
-        itemsMax = value 
+        itemsMax = value
     }
 })
 
-SUBMIT_BTN.addEventListener('click', ()=>{
-    itemsMax = INPUT_NUMBER.value 
-    showData(MAX)  
-    
+SUBMIT_BTN.addEventListener('click', () => {
+    itemsMax = INPUT_NUMBER.value
+    showData(MAX)
+
 })
 
-function showData(MAX) { 
+function showData(MAX) {
 
 
     fetch(`${NEWS_ITEM_URL}${MAX}.json`)
         .then(res => res.json())
         .then(data => {
-           console.log(data);
+            console.log(data);
             if (data.type == 'story' || data.type == 'job' || data.type == 'poll') {
                 fetchedItems++
 
@@ -75,7 +75,7 @@ function showData(MAX) {
 
 
 ///load more data
-BTN.addEventListener('click', function() {
+BTN.addEventListener('click', function () {
     showData(MAX)
 })
 
@@ -105,27 +105,25 @@ function createAndAppend(data) {
 
     container.appendChild(div)
     getH2s()
-    H2 = document.querySelectorAll('h2')
 
 }
 
 ////get h2s after they loaded
-function getH2s() { 
+function getH2s() {
+    H2 = document.querySelectorAll('h2')
     H2.forEach(function (elem) {
-
-        elem.addEventListener('click', e => { 
-            createPopup(e) 
-        })
+        elem.addEventListener('click', createPopup)
     })
 }
 
 function createPopup(e) {
-    let pop = document.createElement('div')
 
-    if (document.querySelector('.pop')) {
-        alert('click the previous one p remove it')
+    if (document.querySelector('.pop') != null) {
+        alert('click the previous one to remove it')
         return
     }
+    let pop = document.createElement('div')
+
     elemBg = window.getComputedStyle(e.target.parentElement).backgroundColor
 
     pop.style.background = elemBg

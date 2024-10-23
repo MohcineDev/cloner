@@ -21,6 +21,7 @@ body {
     max-width: var(--max-width);
 
 }
+
 .container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -54,6 +55,7 @@ body {
 
 h2 {
     text-transform: capitalize;
+    cursor: pointer;
 }
 
 a {
@@ -108,27 +110,33 @@ footer {
     text-align: center;
     color: #888;
     text-transform: uppercase;
-    font-size: 13px;
+    font-size: 13px; 
+     user-select: none;
 }
 
 /* // popup comment */
 
 /* // popup comment */
 .pop {
-    position: absolute;
+    position: fixed;
     top: 50%;
-    right: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     padding: 1rem;
+    overflow: hidden;
+    color: #fff;
+    box-shadow: 0 0 10px #ddd;
+    border-radius: 10px;
 }
 
-@media only screen and (max-width: 760px){
-    body{
+@media only screen and (max-width: 760px) {
+    body {
         margin: 1rem;
     }
-    .container { 
-        grid-template-columns:  1fr;
-        grid-gap: 1rem; 
+
+    .container {
+        grid-template-columns: 1fr;
+        grid-gap: 1rem;
     }
-    
+
 }
