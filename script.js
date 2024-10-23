@@ -26,7 +26,7 @@ getMaxItemID()
 
 let count = 0
 let fetchedItems = 0
-let itemsMax = 10
+let itemsMax = 1
 
 function showData(MAX) {
 
@@ -93,25 +93,39 @@ function createAndAppend(data) {
 
 ////get h2s after they loaded
 function getH2s() {
-    let p = document.querySelector('.pop')
-    p ? (document.body.removeChild(p), console.log("remove")) : null
+    // let p = document.querySelector('.pop')
+    // p ? (document.body.removeChild(p), console.log("remove")) : null
     H2.forEach(function (elem) {
 
         elem.addEventListener('click', e => {
             console.log(e);
-            let pop = document.createElement('div')
-            pop.style.background = e.target.parentElement.style.background
-            const h2 = document.createElement('h2')
-            h2.textContent = e.target.textContent || "- -"
-            pop.appendChild(h2)
-            pop.classList.add('pop')
-            document.body.removeChild(pop)
-            document.body.appendChild(pop)
+            createPopup(e)
+            // document.body.appendChild(pop)
         })
-    }
-    )
+    })
 }
 
+function createPopup(e) {
+    let pop = document.createElement('div')
+
+    if (document.querySelector('.pop') ) {
+        alert('click the previous one p remove it')
+        return
+    }
+    elemBg = window.getComputedStyle(e.target.parentElement).backgroundColor
+
+    pop.style.background = elemBg
+    const h2 = document.createElement('h2')
+    h2.textContent = e.target.textContent || "- -"
+    pop.appendChild(h2)
+    pop.classList.add('pop')
+
+    document.body.appendChild(pop)
+
+    pop.addEventListener('click', () => {
+        document.body.removeChild(pop)
+    })
+}
 
 ///footer date
 document.querySelector('footer span').textContent = new Date().getFullYear()
