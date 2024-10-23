@@ -5,8 +5,13 @@ const arrow = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 
   <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
 </svg>
 `
-const btn = document.querySelector('button')
+const BTN = document.querySelector('button')
+const INPUT_NUMBER = document.querySelector('input[type=number]')
+const SUBMIT_BTN = document.querySelector('.tool input[type=button]')
+INPUT_NUMBER.value = 5
+
 let H2 = document.querySelectorAll('h2')
+
 //get max item ID 
 
 let MAX = 0
@@ -28,13 +33,26 @@ let count = 0
 let fetchedItems = 0
 let itemsMax = 1
 
-function showData(MAX) {
+INPUT_NUMBER.addEventListener('change', (e) => {
+    let value = e.target.value
+    if (value <= 100 && value >= 1) {
+        itemsMax = value 
+    }
+})
+
+SUBMIT_BTN.addEventListener('click', ()=>{
+    itemsMax = INPUT_NUMBER.value 
+    showData(MAX)  
+    
+})
+
+function showData(MAX) { 
 
 
     fetch(`${NEWS_ITEM_URL}${MAX}.json`)
         .then(res => res.json())
         .then(data => {
-            console.log(data);
+           console.log(data);
             if (data.type == 'story' || data.type == 'job' || data.type == 'poll') {
                 fetchedItems++
 
@@ -57,7 +75,7 @@ function showData(MAX) {
 
 
 ///load more data
-btn.addEventListener('click', () => {
+BTN.addEventListener('click', function() {
     showData(MAX)
 })
 
@@ -86,21 +104,17 @@ function createAndAppend(data) {
     div.appendChild(url)
 
     container.appendChild(div)
-    H2 = document.querySelectorAll('h2')
     getH2s()
+    H2 = document.querySelectorAll('h2')
 
 }
 
 ////get h2s after they loaded
-function getH2s() {
-    // let p = document.querySelector('.pop')
-    // p ? (document.body.removeChild(p), console.log("remove")) : null
+function getH2s() { 
     H2.forEach(function (elem) {
 
-        elem.addEventListener('click', e => {
-            console.log(e);
-            createPopup(e)
-            // document.body.appendChild(pop)
+        elem.addEventListener('click', e => { 
+            createPopup(e) 
         })
     })
 }
@@ -108,7 +122,7 @@ function getH2s() {
 function createPopup(e) {
     let pop = document.createElement('div')
 
-    if (document.querySelector('.pop') ) {
+    if (document.querySelector('.pop')) {
         alert('click the previous one p remove it')
         return
     }
